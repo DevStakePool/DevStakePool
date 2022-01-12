@@ -3,5 +3,5 @@
 	"ticker": "DEV", 
 	"description": "Supporting people in accessing education and career development in underdeveloped countries", 
 	"homepage": "https://devstakepool.github.io/", 
-	"extended": ""
+	"extended": "https://raw.githubusercontent.com/DevStakePool/DevStakePool/main/metadata/dev_metadata_ext.json"
 }
