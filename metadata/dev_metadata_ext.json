@@ -5,16 +5,15 @@
         "location": "Italy/France",
         "social": {
             "twitter_handle": "AlessioDevStakePool",
-            "telegram_handle": "",
-            "facebook_handle": "",
-            "youtube_handle": "",
-            "twitch_handle": "",
-            "discord_handle": "",
+            "telegram_handle": "adf_1983",
             "github_handle": "DevStakePool"
         },
         "about": {
-            "me": "Hi, my name is Alessio Di Fazio and I'm a software architect with 10+ years of experience in Space/Ground systems of the European Space Agency (ESA)",
-            "server": "High performance VPS hosted in the gaming farm data center in Milan/Italy",
+            "me": "Hi, my name is Alessio Di Fazio and I'm a single stake pool owner and software architect with 10+ years of experience.",
+            "server": "High performance VPSs hosted in the gaming data center in Milan/Italy. Both Block producer and Relay have 16 GB RAM, 6 CPUs and 100 MBit/s redundant network.",
         }
-    }
+    },
+    "my-pool-ids": {
+        "0": "XXXX",
+    },
 }
