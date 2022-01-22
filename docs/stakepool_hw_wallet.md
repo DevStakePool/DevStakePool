@@ -83,6 +83,12 @@ cardano-cli stake-address build \
 ```
 This command creates a reward address, where all the pool rewards will go.
 
+### Create JSON metadata and its hash
+_On the block producer, run the following code to create the hash of the metadata JSON file (needs to be crated manually)_
+```shell
+cardano-cli stake-pool metadata-hash --pool-metadata-file metadata.json > metadata.json.hash
+```
+
 ### Create pool registration certificate
 Double check every argument you pass to the following command. Any mistake will require creation of a new registration certificate.
 
