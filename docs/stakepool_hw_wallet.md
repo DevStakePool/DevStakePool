@@ -91,13 +91,16 @@ cardano-cli stake-address build \
 ```
 This command creates a reward address, where all the pool rewards will go.
 
-Perform the same for the payment address
+Finally, create the payment address
 ```shell
-cardano-cli stake-address build \
-    --stake-verification-key-file owner-payment.vkey \
+cardano-cli address build \
+    --payment-verification-key-file owner-payment.vkey \
+    --stake-verification-key-file owner-stake.vkey \
     --out-file owner-payment.addr \
     --mainnet
 ```
+
+You can always check both owner-stake.addr content and owner-payment.addr on https://pool.pm/ to make sure they are the right ones
 
 ### Create JSON metadata and its hash
 _On the block producer, run the following code to create the hash of the metadata JSON file (needs to be crated manually)_
