@@ -73,6 +73,14 @@ cardano-hw-cli address key-gen \
 ```
 This command creates `owner-stake.vkey` and `owner-stake.hwsfile` files. These files are the staking keys of your HW wallet necessary for stake delegation and creating a witness of a stake pool registration where this hardware device is its owner.
 
+Do something similar for the payment address. This will be the address where the stake pool rewards will be payed to.
+```shell
+cardano-hw-cli address key-gen \
+    --path 1852H/1815H/0H/0/0 \
+    --verification-key-file owner-payment.vkey \
+    --hw-signing-file owner-payment.hwsfile
+```
+
 ### Create reward address
 _This code runs on the block-producer node_
 ```shell
