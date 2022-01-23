@@ -83,8 +83,8 @@ Do something similar for the payment address. This will be the address where the
 
 **NOTE:** Make sure the HW path (e.g., 1852H/1815H/0H/0/0) you choose is a good one with at least 500+fees ADA to register the stake pool. You can use CCVault light wallet to explore the addresses. You can also pick an empty one and do a 500+ ADA internal transaction to the address chosen.
 ```shell
-cardano-hw-cli address key-gen \
-    --path 1852H/1815H/0H/0/0 \
+cardano-hw-cli address key-gen \ 
+    --path 1852H/1815H/0H/0/1 \
     --verification-key-file owner-payment.vkey \
     --hw-signing-file owner-payment.hwsfile
 ```
@@ -151,9 +151,12 @@ cardano-cli stake-pool registration-certificate \
     --out-file stake-pool-registration.cert
 ```
 
+Copy the output file `stake-pool-registration.cert` to your block producer machine
+
 ### Create pool registration transaction
 Get the TX Hash and the TXIX of the payment address
 ```shell
+#runs on the block producer
 cardano-cli query utxo --address $(cat keys/owner-payment.addr) --mainnet
 ```
 This will produce something like this
@@ -181,6 +184,7 @@ cardano-cli transaction build-raw \
 
 Before calculating the min fees, get the protocol file
 ```shell
+#run on the block producer
 cardano-cli query protocol-parameters \
     --mainnet \
     --out-file params.json
@@ -244,7 +248,7 @@ cardano-cli transaction assemble \
     --witness-file owner.witness \
     --out-file tx.signed
 ```
-Send the tx.signed to the block producer.
+Send the `tx.signed` to the block producer.
 Finally, submit the transaction on the blockchain
 ```shell
 #runs on the block producer 
