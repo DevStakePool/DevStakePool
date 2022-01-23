@@ -1,8 +1,10 @@
-# Register Stake Pool with HW Wallet (Based on CoinCashew guide)
+# Register Stake Pool with HW Wallet (variant of CoinCashew guide registration of the stake pool)
 **Sources:**
 * https://www.coincashew.com/coins/overview-ada/guide-how-to-build-a-haskell-stakepool-node#9.-generate-block-producer-keys
 * https://github.com/vacuumlabs/cardano-hw-cli/blob/develop/docs/poolRegistration.md
 * https://www.coincashew.com/coins/overview-ada/guide-how-to-build-a-haskell-stakepool-node/18.-operational-and-maintenance-tips#18.14-secure-your-pool-pledge-with-a-2nd-pool-owner-using-a-hardware-wallet
+
+This guide assumes that you followed the CoinCashew guide to set up your relay/block-producer nodes
 
 ### Generate the KES key pair
 First, we need to generate the stake pool KES and VRF public/private keys
@@ -211,6 +213,8 @@ expr 550000000 - 500000000 - 182969
 ```
 It will output `49817031`
 
+**NOTE:** In my case the transaction submission failed saying that the correct fee was 186225. You might have the same issue.
+
 Build the transaction draft. Remember the `--ttl` is the tip of the blockchain plus margin (use the relay viewer)
 ```shell
 #run on the block producer
@@ -226,8 +230,10 @@ cardano-cli transaction build-raw \
 ```
 Send the `tx.draft` to the local computer that can connect to the ledger nano.
 
-* Signed by pool operator (payer of pool deposit and fees)
-* Pool witness - signed by pool's cold key.
+We need to witness the transaction with:
+* the cold hwsfile (identifying the pool itself)
+* the owner-payment hwsfile (the payment address)
+* the owner-stake hwsfile (the stake address)
 ```shell
 #runs in the local machine with access to the ledger nano
 cardano-hw-cli transaction witness \
@@ -235,22 +241,35 @@ cardano-hw-cli transaction witness \
     --hw-signing-file owner-payment.hwsfile \
     --hw-signing-file cold.hwsfile \
     --mainnet \
-    --out-file owner.witness \
+    --out-file owner-payment.witness \
     --out-file pool.witness
 ```
-Copy the `*.witness` files to the airgapped machine.
-Create signed transaction
+
+```shell
+cardano-hw-cli transaction witness \
+    --tx-body-file ../tx.draft \
+    --hw-signing-file owner-stake.hwsfile \
+    --mainnet \
+    --out-file owner-stake.witness
+```
+Copy the `*.witness` files to the airgapped machine in order to assemble the multi-sig transaction
+
 ```shell
 # runs on the air gapped machine
 cardano-cli transaction assemble \
     --tx-body-file tx.draft \
     --witness-file pool.witness \
-    --witness-file owner.witness \
+    --witness-file owner-payment.witness \
+    --witness-file owner-stake.witness \
     --out-file tx.signed
 ```
 Send the `tx.signed` to the block producer.
+
 Finally, submit the transaction on the blockchain
 ```shell
 #runs on the block producer 
 cardano-cli transaction submit --tx-file tx.signed --mainnet
 ```
+If you see an output like this `Transaction successfully submitted.`, congratulations, your pool is registered!
+
+Now you can follow the rest of this: https://www.coincashew.com/coins/overview-ada/guide-how-to-build-a-haskell-stakepool-node#13.-locate-your-stake-pool-id-and-verify-everything-is-working
