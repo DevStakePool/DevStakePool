@@ -4,7 +4,7 @@ LeaderLog is a very useful utility which is part of the [CNCLI](https://github.c
 The main issue with this tool is that it has to run together with the `cardano-node` and the RAM consumption is usually very high (sometimes higher that the available RAM on a running node) and therefore (at least for me) it was very tricky to run the utility on by relay/block-producer node, having only 16 GB of RAM available.
 
 ## Goal
-This guide wasts to show how to use the `CNCLI` utility on a home computer that runs linux and has enough RAM memory. To speed up things, I decided to use the `cardano-node` that is running together with the [Daedalus](https://daedaluswallet.io/) full-node wallet.
+This guide wants to show how to use the `CNCLI` utility on a home computer that runs linux and has enough RAM memory. To speed up things, I decided to use the `cardano-node` that is running together with the [Daedalus](https://daedaluswallet.io/) full-node wallet.
 
 ## Install Daedalus
 Install Daedalus on your linux machine. This is a very simple operation to do. There's the need to [download the Daedalus Linux](https://daedaluswallet.io/en/download/) version from the official site and execute the `.bin` file to install it.
