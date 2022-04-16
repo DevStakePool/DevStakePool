@@ -45,4 +45,5 @@ You should keep on at least the following ones, after you are sure that everythi
 - TraceForge
 - TraceServer
 ```
-
+Very important if you see high missed leader slots, add this in your `mainnet-config.json` file and restart the cardano node.
+`"SnapshotInterval": 43200',`
