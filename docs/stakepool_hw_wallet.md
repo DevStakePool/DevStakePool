@@ -135,8 +135,7 @@ grep minPoolCost mainnet-shelley-genesis.json
 It will show an output like the following: `"minPoolCost": 340000000,`
 
 ```shell
-#Run this on the air-gapped machine
-# On the air gapped machine
+# Run this on the air-gapped machine
 cardano-cli stake-pool registration-certificate \
     --cold-verification-key-file hwkeys/cold.vkey \
     --vrf-verification-key-file keskeys/vrf.vkey \
@@ -181,7 +180,8 @@ cardano-cli transaction build-raw \
     --fee 0 \
     --out-file tx.draft \
     --certificate-file stake-pool-registration.cert \
-    --mary-era
+    --alonzo-era \
+    --cddl-format
 ```
 
 Before calculating the min fees, get the protocol file
@@ -200,14 +200,14 @@ cardano-cli transaction calculate-min-fee \
     --tx-in-count 1 \
     --tx-out-count 1 \
     --mainnet \
-    --witness-count 1 \
+    --witness-count 3 \
     --byron-witness-count 0 \
     --protocol-params-file params.json
 ```
 This will generate an output like `182969 Lovelace`
 
 Calculate the tx-out correct value: `TOT WALLET Balance - 500000000 - 182969` (all in Lovelace):
-
+*NOTE:* omit the 500ADA if you are only re-creating the pool certificate (e.g., to change the pledge or margin)
 ```shell
 expr 550000000 - 500000000 - 182969
 ```
@@ -223,21 +223,32 @@ cardano-cli transaction build-raw \
     --tx-out $(cat owner-payment.addr)+49817031 \
     --ttl 51368175 \
     --fee 182969 \
-    --out-file tx.draft \
+    --out-file tx.raw \
     --certificate-file stake-pool-registration.cert \
-    --mary-era
-
+    --alonzo-era \
+    --cddl-format
 ```
-Send the `tx.draft` to the local computer that can connect to the ledger nano.
+Send the `tx.raw` to the local computer that can connect to the Ledger HW wallet.
 
 We need to witness the transaction with:
 * the cold hwsfile (identifying the pool itself)
 * the owner-payment hwsfile (the payment address)
 * the owner-stake hwsfile (the stake address)
+
+First, transform the TX
+```shell
+#runs in the local machine with access to the ledger nano
+cardano-hw-cli transaction transform \
+  --tx-file tx.raw \
+  --out-file tx.transformed
+```
+
+Now create the witnesses of the TX
+
 ```shell
 #runs in the local machine with access to the ledger nano
 cardano-hw-cli transaction witness \
-    --tx-body-file tx.draft \
+    --tx-file tx.raw \
     --hw-signing-file owner-payment.hwsfile \
     --hw-signing-file cold.hwsfile \
     --mainnet \
@@ -247,7 +258,7 @@ cardano-hw-cli transaction witness \
 
 ```shell
 cardano-hw-cli transaction witness \
-    --tx-body-file ../tx.draft \
+    --tx-file tx.raw \
     --hw-signing-file owner-stake.hwsfile \
     --mainnet \
     --out-file owner-stake.witness
@@ -257,7 +268,7 @@ Copy the `*.witness` files to the airgapped machine in order to assemble the mul
 ```shell
 # runs on the air gapped machine
 cardano-cli transaction assemble \
-    --tx-body-file tx.draft \
+    --tx-body-file tx.transformed \
     --witness-file pool.witness \
     --witness-file owner-payment.witness \
     --witness-file owner-stake.witness \
