@@ -36,8 +36,3 @@ scrape_configs:
           alias: 'core'
           type:  'host-system'
 
-  - job_name: 'adapools-exporter'
-    scrape_interval: 60s
-    metrics_path: /poolid=ca97f539e6a878e7a7d87d762982a016ac6959d76719c8212a4a39e0
-    static_configs:
-      - targets: ['127.0.0.1:8000']
