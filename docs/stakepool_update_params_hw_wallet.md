@@ -42,8 +42,7 @@ cardano-cli transaction build-raw \
     --fee 0 \
     --out-file tx.draft \
     --certificate-file stake-pool-registration-*********.cert \
-    --alonzo-era \
-    --cddl-format
+    --alonzo-era 
 ```
 Move the file `tx.draft` to the block producer
 
@@ -81,8 +80,7 @@ cardano-cli transaction build-raw \
 --fee 200000 \
 --out-file tx.tosign \
 --certificate-file stake-pool-registration-*********.cert \
---alonzo-era \
---cddl-format
+--alonzo-era
 ```
 
 Move the file `tx.tosign` to the airgapped machine connected to the HW wallet.
