@@ -22,7 +22,7 @@ cardano-cli stake-pool registration-certificate \
 
 Check your payment addr balance:
 ```shell
-cardano-cli query utxo --address $(cat owner-payment.addr)
+cardano-cli query utxo --address $(cat owner-payment.addr) --mainnet
 ```
 you'll get something like this:
 ```
