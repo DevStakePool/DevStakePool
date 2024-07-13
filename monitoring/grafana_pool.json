@@ -296,113 +296,6 @@
         "type": "prometheus",
         "uid": "1wqDDs4Vk"
       },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "max": 90,
-          "min": 0,
-          "noValue": "-",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "dark-red",
-                "value": null
-              },
-              {
-                "color": "semi-dark-red",
-                "value": 5
-              },
-              {
-                "color": "dark-orange",
-                "value": 10
-              },
-              {
-                "color": "dark-green",
-                "value": 15
-              }
-            ]
-          },
-          "unit": "locale"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 4,
-        "x": 8,
-        "y": 0
-      },
-      "id": 151,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.2.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "1wqDDs4Vk"
-          },
-          "exemplar": true,
-          "expr": "cardano_node_metrics_currentKESPeriod_int",
-          "format": "time_series",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "Current Period",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "1wqDDs4Vk"
-          },
-          "exemplar": true,
-          "expr": "cardano_node_metrics_operationalCertificateExpiryKESPeriod_int",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Expiry Period",
-          "refId": "B"
-        }
-      ],
-      "title": "KES Key Rotation",
-      "transformations": [],
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "1wqDDs4Vk"
-      },
       "description": "Remaining KES DAYS before we need to rotate keys",
       "fieldConfig": {
         "defaults": {
@@ -451,8 +344,8 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 12,
+        "w": 8,
+        "x": 8,
         "y": 0
       },
       "id": 19,
@@ -989,7 +882,7 @@
         "type": "prometheus",
         "uid": "1wqDDs4Vk"
       },
-      "description": "Connected peers to/from Relay 1",
+      "description": "Connected peers in Duplex",
       "fieldConfig": {
         "defaults": {
           "decimals": 0,
@@ -1008,16 +901,16 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-green",
+                "color": "red",
                 "value": null
               },
               {
                 "color": "semi-dark-yellow",
-                "value": 12
+                "value": 1
               },
               {
-                "color": "#FA6400",
-                "value": 15
+                "color": "green",
+                "value": 2
               }
             ]
           },
@@ -1027,7 +920,7 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 3,
+        "w": 2,
         "x": 16,
         "y": 5
       },
@@ -1058,7 +951,7 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "cardano_node_metrics_peers_connectedPeers_int",
+          "expr": "cardano_node_metrics_connectionManager_outgoingConns",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -1068,7 +961,94 @@
           "step": 20
         }
       ],
-      "title": "Peers (Relay)",
+      "title": "Peers (Outgoing)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "description": "Connected peers in Incoming",
+      "fieldConfig": {
+        "defaults": {
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 2,
+        "x": 18,
+        "y": 5
+      },
+      "id": 167,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "cardano_node_metrics_connectionManager_incomingConns",
+          "format": "time_series",
+          "instant": true,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{alias}}",
+          "refId": "A",
+          "step": 20
+        }
+      ],
+      "title": "Peers (Incoming)",
       "type": "stat"
     },
     {
@@ -1106,8 +1086,8 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 3,
-        "x": 19,
+        "w": 2,
+        "x": 20,
         "y": 5
       },
       "id": 70,
@@ -2420,6 +2400,1068 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "yellow",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 19
+      },
+      "id": 169,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "mithril_signer_signer_registration_success_last_epoch{alias=\"mithil\"}",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Signer Reg. Last Epoch",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 19
+      },
+      "id": 175,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "round(increase(mithril_signer_signer_registration_success_since_startup{alias=\"mithil\"}[$__range]))",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "interval": "",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Signer Registration Success",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 19
+      },
+      "id": 181,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "round(increase(mithril_signer_signer_registration_total_since_startup{alias=\"mithil\"}[$__range])-increase(mithril_signer_signer_registration_success_since_startup{alias=\"mithil\"}[$__range]))",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Signer Registration Errors",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 6,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 9,
+        "y": 19
+      },
+      "id": 187,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "mithril_signer_signer_registration_total_since_startup{alias=\"mithil\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "total",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "mithril_signer_signer_registration_success_since_startup{alias=\"mithil\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "success",
+          "range": true,
+          "refId": "B",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "editorMode": "code",
+          "expr": "mithril_signer_signer_registration_total_since_startup{alias=\"mithil\"}-mithril_signer_signer_registration_success_since_startup{alias=\"mithil\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "error",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Signer Registration",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 6,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 14,
+        "y": 19
+      },
+      "id": 189,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "mithril_signer_signature_registration_total_since_startup{alias=\"mithil\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "total",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "mithril_signer_signature_registration_success_since_startup{alias=\"mithil\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "success",
+          "range": true,
+          "refId": "B",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "editorMode": "code",
+          "expr": "mithril_signer_signature_registration_total_since_startup{alias=\"mithil\"}-mithril_signer_signature_registration_success_since_startup{alias=\"mithil\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "error",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Signature Registration",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "dashed"
+            }
+          },
+          "mappings": [],
+          "max": 110,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              },
+              {
+                "color": "#EAB839",
+                "value": 90
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 100
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "success rate"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 5,
+        "x": 19,
+        "y": 19
+      },
+      "id": 191,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "100*(1-(mithril_signer_runtime_cycle_total_since_startup{alias=\"mithil\"}-mithril_signer_runtime_cycle_success_since_startup{alias=\"mithil\"})/mithril_signer_runtime_cycle_total_since_startup{alias=\"mithil\"})",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "success rate",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "State Machine Success Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "yellow",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 22
+      },
+      "id": 171,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "mithril_signer_signature_registration_success_last_epoch{alias=\"mithil\"}",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Signature Reg. Last Epoch",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 22
+      },
+      "id": 177,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "round(increase(mithril_signer_signature_registration_success_since_startup{alias=\"mithil\"}[$__range]))",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Signature Reg. Success",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 22
+      },
+      "id": 183,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "round(increase(mithril_signer_signature_registration_total_since_startup{alias=\"mithil\"}[$__range])-increase(mithril_signer_signature_registration_success_since_startup{alias=\"mithil\"}[$__range]))",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Signature Registration Errors",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "blue",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 0,
+        "y": 25
+      },
+      "id": 173,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "round(increase(mithril_signer_runtime_cycle_total_since_startup{alias=\"mithil\"}[$__range]))",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "State Machine Cycles",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "green",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 3,
+        "y": 25
+      },
+      "id": 179,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "round(increase(mithril_signer_runtime_cycle_success_since_startup{alias=\"mithil\"}[$__range]))",
+          "format": "table",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "State Machine Cycles Succ.",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "red",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 6,
+        "y": 25
+      },
+      "id": 185,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "expr": "round(increase(mithril_signer_runtime_cycle_total_since_startup{alias=\"mithil\"}[$__range])-increase(mithril_signer_runtime_cycle_success_since_startup{alias=\"mithil\"}[$__range]))",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "State Machine Cycles Errors",
+      "type": "stat"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
@@ -2441,7 +3483,7 @@
         "h": 9,
         "w": 13,
         "x": 0,
-        "y": 19
+        "y": 28
       },
       "hiddenSeries": false,
       "id": 51,
@@ -2598,7 +3640,7 @@
         "h": 9,
         "w": 11,
         "x": 13,
-        "y": 19
+        "y": 28
       },
       "hiddenSeries": false,
       "id": 90,
@@ -2779,7 +3821,7 @@
         "h": 7,
         "w": 13,
         "x": 0,
-        "y": 28
+        "y": 37
       },
       "hiddenSeries": false,
       "id": 157,
@@ -2930,7 +3972,7 @@
         "h": 7,
         "w": 11,
         "x": 13,
-        "y": 28
+        "y": 37
       },
       "hiddenSeries": false,
       "id": 158,
@@ -3098,11 +4140,11 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 13,
+        "w": 6,
         "x": 0,
-        "y": 35
+        "y": 44
       },
-      "id": 54,
+      "id": 166,
       "links": [],
       "options": {
         "legend": {
@@ -3126,13 +4168,125 @@
             "uid": "1wqDDs4Vk"
           },
           "editorMode": "code",
-          "exemplar": true,
           "expr": "cardano_node_metrics_peers_connectedPeers_int{alias=\"block-producer\"}",
-          "instant": false,
-          "interval": "",
-          "legendFormat": "Core",
-          "refId": "A"
+          "hide": false,
+          "legendFormat": "Connected Peers Core",
+          "range": true,
+          "refId": "B"
         },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "editorMode": "code",
+          "expr": "cardano_node_metrics_connectionManager_incomingConns{alias=\"block-producer\"}",
+          "hide": false,
+          "legendFormat": "Incoming Core",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "editorMode": "code",
+          "expr": "cardano_node_metrics_connectionManager_outgoingConns{alias=\"block-producer\"}",
+          "hide": false,
+          "legendFormat": "Outgoing Core",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Connected Peers (Core Node)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "1wqDDs4Vk"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 7,
+        "x": 6,
+        "y": 44
+      },
+      "id": 164,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.2.3",
+      "targets": [
         {
           "datasource": {
             "type": "prometheus",
@@ -3141,70 +4295,122 @@
           "editorMode": "code",
           "expr": "cardano_node_metrics_peers_connectedPeers_int{alias=\"relay2\"}",
           "hide": false,
-          "legendFormat": "Relay2",
+          "legendFormat": "Connected Peers Relay2",
           "range": true,
           "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "editorMode": "code",
+          "expr": "cardano_node_metrics_connectionManager_incomingConns{alias=\"relay2\"}",
+          "hide": false,
+          "legendFormat": "Incoming Relay2",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "editorMode": "code",
+          "expr": "cardano_node_metrics_connectionManager_outgoingConns{alias=\"relay2\"}",
+          "hide": false,
+          "legendFormat": "Outgoing Relay2",
+          "range": true,
+          "refId": "D"
         }
       ],
-      "title": "Connected Peers (Core Node)",
+      "title": "Connected Peers (Relay2 Node)",
       "type": "timeseries"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": {
         "type": "prometheus",
         "uid": "1wqDDs4Vk"
       },
-      "decimals": 0,
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "links": []
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
         },
         "overrides": []
       },
-      "fill": 1,
-      "fillGradient": 0,
       "gridPos": {
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 35
+        "y": 44
       },
-      "hiddenSeries": false,
-      "id": 114,
-      "legend": {
-        "alignAsTable": false,
-        "avg": false,
-        "current": true,
-        "hideEmpty": false,
-        "hideZero": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
+      "id": 165,
       "links": [],
-      "nullPointMode": "null",
       "options": {
-        "alertThreshold": true
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
       },
-      "percentage": false,
       "pluginVersion": "9.2.3",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
       "targets": [
         {
           "datasource": {
@@ -3212,48 +4418,39 @@
             "uid": "1wqDDs4Vk"
           },
           "editorMode": "code",
-          "exemplar": true,
-          "expr": "cardano_node_metrics_peers_connectedPeers_int{alias=\"relay2\"}",
-          "interval": "",
-          "legendFormat": "Relay",
+          "expr": "cardano_node_metrics_peers_connectedPeers_int{alias=\"relay1\"}",
+          "hide": false,
+          "legendFormat": "Connected Peers",
           "range": true,
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeRegions": [],
-      "title": "Connected Peers (Relay Node)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "mode": "time",
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:130",
-          "decimals": 0,
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "show": true
+          "refId": "B"
         },
         {
-          "$$hashKey": "object:131",
-          "format": "short",
-          "label": "JAWS_S1_Relays",
-          "logBase": 1,
-          "show": false
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "editorMode": "code",
+          "expr": "cardano_node_metrics_connectionManager_incomingConns{alias=\"relay1\"}",
+          "hide": false,
+          "legendFormat": "Incoming",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "1wqDDs4Vk"
+          },
+          "editorMode": "code",
+          "expr": "cardano_node_metrics_connectionManager_outgoingConns{alias=\"relay1\"}",
+          "hide": false,
+          "legendFormat": "Outgoing",
+          "range": true,
+          "refId": "D"
         }
       ],
-      "yaxis": {
-        "align": true
-      }
+      "title": "Connected Peers (Relay1 Node)",
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -3319,7 +4516,7 @@
         "h": 6,
         "w": 13,
         "x": 0,
-        "y": 40
+        "y": 49
       },
       "id": 28,
       "options": {
@@ -3388,7 +4585,7 @@
         "h": 6,
         "w": 11,
         "x": 13,
-        "y": 40
+        "y": 49
       },
       "hiddenSeries": false,
       "id": 119,
@@ -3422,16 +4619,18 @@
             "type": "prometheus",
             "uid": "1wqDDs4Vk"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "rate (cardano_node_metrics_blockNum_int{alias=\"relay2\"}[150s]) *60",
+          "expr": "rate (cardano_node_metrics_blockNum_int{alias=\"relay1\"}[150s]) *60",
           "interval": "",
           "legendFormat": "Relay",
+          "range": true,
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Block Sync Speed (blocks / min) (Relay Node)",
+      "title": "Block Sync Speed (blocks / min) (Relay1 Node)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -3485,7 +4684,7 @@
         "h": 9,
         "w": 13,
         "x": 0,
-        "y": 46
+        "y": 55
       },
       "hiddenSeries": false,
       "id": 47,
@@ -3762,7 +4961,7 @@
         "h": 9,
         "w": 11,
         "x": 13,
-        "y": 46
+        "y": 55
       },
       "id": 94,
       "links": [],
@@ -3834,7 +5033,7 @@
           "step": 240
         }
       ],
-      "title": "Time Synchronization (Relay Node)",
+      "title": "Time Synchronization (Relay1 Node)",
       "type": "timeseries"
     },
     {
@@ -3902,7 +5101,7 @@
         "h": 5,
         "w": 13,
         "x": 0,
-        "y": 55
+        "y": 64
       },
       "id": 24,
       "interval": "",
@@ -3962,7 +5161,7 @@
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 55
+        "y": 64
       },
       "hiddenSeries": false,
       "id": 61,
@@ -4105,7 +5304,7 @@
         "h": 5,
         "w": 13,
         "x": 0,
-        "y": 60
+        "y": 69
       },
       "id": 135,
       "options": {
@@ -4175,7 +5374,7 @@
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 60
+        "y": 69
       },
       "hiddenSeries": false,
       "id": 66,
@@ -4271,7 +5470,7 @@
         "h": 5,
         "w": 13,
         "x": 0,
-        "y": 65
+        "y": 74
       },
       "hiddenSeries": false,
       "id": 59,
@@ -4367,7 +5566,7 @@
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 65
+        "y": 74
       },
       "hiddenSeries": false,
       "id": 67,
@@ -4505,7 +5704,7 @@
         "h": 5,
         "w": 13,
         "x": 0,
-        "y": 70
+        "y": 79
       },
       "id": 37,
       "options": {
@@ -4575,7 +5774,7 @@
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 70
+        "y": 79
       },
       "hiddenSeries": false,
       "id": 116,
@@ -4670,7 +5869,7 @@
         "h": 5,
         "w": 13,
         "x": 0,
-        "y": 75
+        "y": 84
       },
       "hiddenSeries": false,
       "id": 63,
@@ -4770,7 +5969,7 @@
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 75
+        "y": 84
       },
       "hiddenSeries": false,
       "id": 93,
@@ -4913,7 +6112,7 @@
         "h": 5,
         "w": 13,
         "x": 0,
-        "y": 80
+        "y": 89
       },
       "id": 32,
       "options": {
@@ -4983,7 +6182,7 @@
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 80
+        "y": 89
       },
       "hiddenSeries": false,
       "id": 121,
@@ -5078,7 +6277,7 @@
         "h": 5,
         "w": 13,
         "x": 0,
-        "y": 85
+        "y": 94
       },
       "hiddenSeries": false,
       "id": 64,
@@ -5176,7 +6375,7 @@
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 85
+        "y": 94
       },
       "hiddenSeries": false,
       "id": 137,
@@ -5275,7 +6474,7 @@
         "h": 5,
         "w": 13,
         "x": 0,
-        "y": 90
+        "y": 99
       },
       "hiddenSeries": false,
       "id": 30,
@@ -5375,7 +6574,7 @@
         "h": 5,
         "w": 11,
         "x": 13,
-        "y": 90
+        "y": 99
       },
       "hiddenSeries": false,
       "id": 161,
@@ -5491,6 +6690,6 @@
   "timezone": "",
   "title": "DEV Stake Pool",
   "uid": "USONE1",
-  "version": 13,
+  "version": 23,
   "weekStart": ""
 }
