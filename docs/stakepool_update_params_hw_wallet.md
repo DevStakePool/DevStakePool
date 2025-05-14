@@ -35,21 +35,24 @@ Start building your Transaction to submit the new certificate
 ```shell
 
 #run on the block producer
-cardano-cli transaction build-raw \
+cardano-cli latest transaction build-raw \
     --tx-in 282f1f9ecdfba373f70a0c29babbc4XXXXXXXXXXXXXXXXXXXXXXX#0 \
     --tx-out $(cat owner-payment.addr)+0 \
     --ttl 0 \
     --fee 0 \
     --out-file tx.draft \
-    --certificate-file stake-pool-registration-*********.cert \
-    --alonzo-era 
+    --certificate-file stake-pool-registration-*********.cert
 ```
-Move the file `tx.draft` to the block producer
+
+Update first your protocol parameters
+```shell
+cardano-cli query protocol-parameters --mainnet > params.json
+```
 
 ```shell
 # Calculate min fees
 # run this on the block producer 
-cardano-cli transaction calculate-min-fee \
+cardano-cli latest transaction calculate-min-fee \
 --tx-body-file tx.draft \
 --tx-in-count 1 \
 --tx-out-count 1 \
@@ -72,15 +75,22 @@ expr 10000000 - 200000
 
 Create the TX pre-signature.
 The ttl is the blockchain tip + margin
+
+You can use this to grab the current tip
+
 ```shell
-cardano-cli transaction build-raw \
+curl -X GET "https://api.koios.rest/api/v1/tip" \
+ -H "accept: application/json" | jq | grep block_height
+```
+
+```shell
+cardano-cli latest transaction build-raw \
 --tx-in "282f1f9ecdfba373f70a0c29babbc4XXXXXXXXXXXXXXXXXXXXXXX#0" \
 --tx-out $(cat owner-payment.addr)+9800000 \
 --ttl 84326409 \
 --fee 200000 \
 --out-file tx.tosign \
---certificate-file stake-pool-registration-*********.cert \
---alonzo-era
+--certificate-file stake-pool-registration-*********.cert
 ```
 
 Move the file `tx.tosign` to the airgapped machine connected to the HW wallet.
