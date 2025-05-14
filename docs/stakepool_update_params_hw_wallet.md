@@ -121,7 +121,7 @@ cardano-hw-cli transaction witness \
 ```
 
 ```shell
-cardano-cli transaction assemble \
+cardano-cli latest transaction assemble \
 --tx-body-file tx.transformed \
 --witness-file operator.witness \
 --witness-file pool.witness \
