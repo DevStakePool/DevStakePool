@@ -4,7 +4,7 @@ First you need to regenerate a new certificate
 
 ```shell
 # runs on airdropped machine
-cardano-cli stake-pool registration-certificate \
+cardano-cli latest stake-pool registration-certificate \
     --cold-verification-key-file hwkeys/cold.vkey \
     --vrf-verification-key-file keskeys/vrf.vkey \
     --pool-pledge 40000000000 \
