@@ -80,7 +80,7 @@ You can use this to grab the current tip
 
 ```shell
 curl -X GET "https://api.koios.rest/api/v1/tip" \
- -H "accept: application/json" | jq | grep block_height
+ -H "accept: application/json" | jq | grep abs_slot
 ```
 
 ```shell
@@ -125,5 +125,5 @@ cardano-cli transaction assemble \
 
 Move the file `tx.signed` to the block producer to submit the TX:
 ```shell
-cardano-cli transaction submit --tx-file tx.signed --mainnet
+cardano-cli latest transaction submit --tx-file tx.signed --mainnet
 ```
