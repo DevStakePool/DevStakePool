@@ -100,7 +100,9 @@ Witness and sign:
 cardano-hw-cli transaction transform \
 --tx-file tx.tosign \
 --out-file tx.transformed
+```
 
+```shell
 cardano-hw-cli transaction witness \
 --tx-file tx.transformed \
 --hw-signing-file owner-payment.hwsfile \
@@ -108,13 +110,17 @@ cardano-hw-cli transaction witness \
 --mainnet \
 --out-file operator.witness \
 --out-file pool.witness
+```
 
+```shell
 cardano-hw-cli transaction witness \
 --tx-file tx.transformed \
 --hw-signing-file owner-stake.hwsfile \
 --mainnet \
 --out-file owner.witness
+```
 
+```shell
 cardano-cli transaction assemble \
 --tx-body-file tx.transformed \
 --witness-file operator.witness \
